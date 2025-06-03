@@ -3,401 +3,334 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>معلوماتي الشخصية</title>
+    <title>موقع المستخدم الشخصي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-
-        body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
             min-height: 100vh;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             padding: 20px;
+            color: #333;
         }
-
+        
         .container {
+            width: 100%;
+            max-width: 500px;
             background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
             border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-            padding: 40px;
-            max-width: 450px;
-            width: 100%;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .container:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
-        }
-
-        .welcome-form h1 {
-            color: #4a5568;
-            margin-bottom: 30px;
-            font-size: 2.2em;
-            font-weight: 300;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-            text-align: right;
-        }
-
-        .form-group label {
-            display: inline-block;
-            margin-bottom: 8px;
-            color: #2d3748;
-            font-weight: 500;
-            font-size: 1.1em;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.8);
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-            transform: scale(1.02);
-        }
-
-        .submit-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            border-radius: 25px;
-            font-size: 18px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 20px;
-            position: relative;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
             overflow: hidden;
+            transition: all 0.5s ease;
         }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        
+        .header {
+            background: linear-gradient(90deg, #4776E6 0%, #8E54E9 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
         }
-
-        .submit-btn:active {
-            transform: translateY(0);
+        
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
         }
-
-        .user-info {
-            display: none;
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
         }
-
-        .user-info h1 {
-            color: #4a5568;
-            margin-bottom: 40px;
-            font-size: 2.5em;
-            font-weight: 300;
-        }
-
-        .info-card {
-            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
-            border-radius: 15px;
+        
+        .content {
             padding: 30px;
-            margin: 20px 0;
-            border-left: 5px solid #667eea;
-            transition: all 0.3s ease;
         }
-
-        .info-card:hover {
-            transform: translateX(-10px);
-            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+        
+        /* استايل نموذج الإدخال */
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
-
-        .info-label {
-            color: #667eea;
-            font-size: 14px;
+        
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .input-group label {
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
+            font-size: 1.1rem;
+            color: #555;
         }
-
-        .info-value {
-            color: #2d3748;
-            font-size: 24px;
-            font-weight: 500;
+        
+        .input-group input {
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            transition: all 0.3s;
         }
-
-        .edit-btn {
-            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+        
+        .input-group input:focus {
+            border-color: #4776E6;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(71, 118, 230, 0.2);
+        }
+        
+        .btn {
+            background: linear-gradient(90deg, #4776E6 0%, #8E54E9 100%);
             color: white;
             border: none;
-            padding: 12px 30px;
-            border-radius: 20px;
-            font-size: 16px;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 30px;
+            transition: all 0.3s;
+            margin-top: 10px;
         }
-
-        .edit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(72, 187, 120, 0.4);
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
-
-        .icon {
-            font-size: 60px;
-            margin-bottom: 20px;
-            opacity: 0.8;
+        
+        /* استايل عرض البيانات */
+        .data-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+            text-align: center;
         }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4776E6 0%, #8E54E9 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: -70px;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
-
-        .container {
-            animation: fadeIn 0.6s ease-out;
+        
+        .avatar i {
+            font-size: 3.5rem;
+            color: white;
         }
-
-        .floating-shapes {
-            position: fixed;
-            top: 0;
-            left: 0;
+        
+        .user-info {
             width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
         }
-
-        .shape {
-            position: absolute;
-            opacity: 0.1;
-            animation: float 6s ease-in-out infinite;
+        
+        .info-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            text-align: right;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid #4776E6;
+            transition: transform 0.3s;
         }
-
-        .shape:nth-child(1) {
-            top: 20%;
-            left: 20%;
-            animation-delay: 0s;
+        
+        .info-card:hover {
+            transform: translateY(-5px);
         }
-
-        .shape:nth-child(2) {
-            top: 60%;
-            right: 20%;
-            animation-delay: 2s;
+        
+        .info-card h3 {
+            color: #4776E6;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
         }
-
-        .shape:nth-child(3) {
-            bottom: 20%;
-            left: 30%;
-            animation-delay: 4s;
+        
+        .info-card p {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #333;
         }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0px) rotate(0deg);
+        
+        .welcome-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #4776E6;
+            margin-top: 10px;
+        }
+        
+        .action-btn {
+            background: #f5f5f5;
+            color: #4776E6;
+            border: 2px solid #4776E6;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        
+        .action-btn:hover {
+            background: #4776E6;
+            color: white;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #777;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+        }
+        
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.8rem;
             }
-            50% {
-                transform: translateY(-20px) rotate(180deg);
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .avatar {
+                width: 100px;
+                height: 100px;
+                margin-top: -60px;
+            }
+            
+            .avatar i {
+                font-size: 2.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="floating-shapes">
-        <div class="shape">💫</div>
-        <div class="shape">⭐</div>
-        <div class="shape">✨</div>
-    </div>
-
     <div class="container">
-        <!-- نموذج الترحيب -->
-        <div id="welcomeForm" class="welcome-form">
-            <div class="icon">👋</div>
-            <h1>أهلاً وسهلاً بك!</h1>
-            <p style="color: #718096; margin-bottom: 30px; font-size: 1.1em;">
-                يرجى إدخال معلوماتك الشخصية للمتابعة
-            </p>
-            
-            <form id="userForm">
-                <div class="form-group">
-                    <label for="name">الاسم:</label>
-                    <input type="text" id="name" name="name" required placeholder="أدخل اسمك الكريم">
-                </div>
-                
-                <div class="form-group">
-                    <label for="phone">رقم الهاتف:</label>
-                    <input type="tel" id="phone" name="phone" required placeholder="أدخل رقم هاتفك">
-                </div>
-                
-                <button type="submit" class="submit-btn">
-                    حفظ المعلومات
-                </button>
-            </form>
+        <div class="header">
+            <h1>مرحبًا بك في موقعنا</h1>
+            <p>نحن سعداء بزيارتك لنا</p>
         </div>
-
-        <!-- عرض المعلومات -->
-        <div id="userInfo" class="user-info">
-            <div class="icon">🎉</div>
-            <h1>مرحباً بعودتك!</h1>
-            
-            <div class="info-card">
-                <div class="info-label">الاسم</div>
-                <div class="info-value" id="displayName"></div>
+        
+        <div class="content">
+            <!-- نموذج الإدخال للزيارة الأولى -->
+            <div class="form-container" id="formContainer">
+                <h2 style="text-align: center; margin-bottom: 20px; color: #4776E6;">الزيارة الأولى</h2>
+                <div class="input-group">
+                    <label for="name">الاسم الكامل:</label>
+                    <input type="text" id="name" placeholder="أدخل اسمك هنا" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="phone">رقم الهاتف:</label>
+                    <input type="tel" id="phone" placeholder="أدخل رقم هاتفك" required>
+                </div>
+                
+                <button class="btn" id="saveBtn">
+                    <i class="fas fa-save"></i> حفظ البيانات
+                </button>
             </div>
             
-            <div class="info-card">
-                <div class="info-label">رقم الهاتف</div>
-                <div class="info-value" id="displayPhone"></div>
+            <!-- عرض البيانات للزيارات التالية -->
+            <div class="data-container" id="dataContainer">
+                <div class="avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                
+                <h2 class="welcome-text">أهلاً بعودتك!</h2>
+                
+                <div class="user-info">
+                    <div class="info-card">
+                        <h3>اسمك الكريم:</h3>
+                        <p id="displayName">محمد أحمد</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3>رقم هاتفك:</h3>
+                        <p id="displayPhone">+966 50 123 4567</p>
+                    </div>
+                </div>
+                
+                <button class="action-btn" id="editBtn">
+                    <i class="fas fa-edit"></i> تعديل البيانات
+                </button>
             </div>
-            
-            <button class="edit-btn" onclick="editInfo()">
-                تعديل المعلومات
-            </button>
+        </div>
+        
+        <div class="footer">
+            تم التطوير بلغة HTML، CSS و JavaScript | التخزين المحلي للمتصفح
         </div>
     </div>
-
+    
     <script>
-        // متغيرات لحفظ البيانات في الذاكرة
-        let userData = {
-            name: '',
-            phone: ''
-        };
-
-        // التحقق من وجود بيانات محفوظة عند تحميل الصفحة
-        window.addEventListener('load', function() {
-            // محاكاة التحقق من البيانات المحفوظة
-            // في التطبيق الحقيقي، ستكون هذه البيانات محفوظة في قاعدة بيانات
-            if (userData.name && userData.phone) {
-                showUserInfo();
+        // التحقق من وجود بيانات مخزنة
+        document.addEventListener('DOMContentLoaded', function() {
+            const userName = localStorage.getItem('userName');
+            const userPhone = localStorage.getItem('userPhone');
+            
+            const formContainer = document.getElementById('formContainer');
+            const dataContainer = document.getElementById('dataContainer');
+            const displayName = document.getElementById('displayName');
+            const displayPhone = document.getElementById('displayPhone');
+            
+            if (userName && userPhone) {
+                // عرض البيانات إذا كانت موجودة
+                formContainer.style.display = 'none';
+                dataContainer.style.display = 'flex';
+                displayName.textContent = userName;
+                displayPhone.textContent = userPhone;
             } else {
-                showWelcomeForm();
+                // عرض النموذج إذا لم تكن البيانات موجودة
+                formContainer.style.display = 'flex';
+                dataContainer.style.display = 'none';
             }
-        });
-
-        // معالج إرسال النموذج
-        document.getElementById('userForm').addEventListener('submit', function(e) {
-            e.preventDefault();
             
-            const name = document.getElementById('name').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            
-            if (name && phone) {
-                // حفظ البيانات في الذاكرة
-                userData.name = name;
-                userData.phone = phone;
+            // حفظ البيانات عند النقر على الزر
+            document.getElementById('saveBtn').addEventListener('click', function() {
+                const name = document.getElementById('name').value;
+                const phone = document.getElementById('phone').value;
                 
-                // عرض البيانات
-                showUserInfo();
+                if (name && phone) {
+                    localStorage.setItem('userName', name);
+                    localStorage.setItem('userPhone', phone);
+                    
+                    // عرض البيانات بعد الحفظ
+                    formContainer.style.display = 'none';
+                    dataContainer.style.display = 'flex';
+                    displayName.textContent = name;
+                    displayPhone.textContent = phone;
+                } else {
+                    alert('الرجاء إدخال جميع البيانات المطلوبة');
+                }
+            });
+            
+            // تعديل البيانات
+            document.getElementById('editBtn').addEventListener('click', function() {
+                localStorage.removeItem('userName');
+                localStorage.removeItem('userPhone');
                 
-                // رسالة تأكيد
-                showNotification('تم حفظ معلوماتك بنجاح! 🎉');
-            }
+                // إعادة عرض النموذج
+                formContainer.style.display = 'flex';
+                dataContainer.style.display = 'none';
+                
+                // مسح الحقول
+                document.getElementById('name').value = '';
+                document.getElementById('phone').value = '';
+            });
         });
-
-        // عرض نموذج الترحيب
-        function showWelcomeForm() {
-            document.getElementById('welcomeForm').style.display = 'block';
-            document.getElementById('userInfo').style.display = 'none';
-        }
-
-        // عرض معلومات المستخدم
-        function showUserInfo() {
-            document.getElementById('displayName').textContent = userData.name;
-            document.getElementById('displayPhone').textContent = userData.phone;
-            
-            document.getElementById('welcomeForm').style.display = 'none';
-            document.getElementById('userInfo').style.display = 'block';
-        }
-
-        // تعديل المعلومات
-        function editInfo() {
-            // مسح البيانات المحفوظة
-            userData.name = '';
-            userData.phone = '';
-            
-            // مسح النموذج
-            document.getElementById('name').value = '';
-            document.getElementById('phone').value = '';
-            
-            // عرض نموذج الترحيب
-            showWelcomeForm();
-            
-            showNotification('يمكنك الآن تعديل معلوماتك ✏️');
-        }
-
-        // عرض رسالة إشعار
-        function showNotification(message) {
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
-                color: white;
-                padding: 15px 25px;
-                border-radius: 10px;
-                box-shadow: 0 10px 25px rgba(72, 187, 120, 0.3);
-                z-index: 1000;
-                font-size: 16px;
-                animation: slideIn 0.3s ease-out;
-            `;
-            
-            notification.textContent = message;
-            document.body.appendChild(notification);
-            
-            // إزالة الإشعار بعد 3 ثوانِي
-            setTimeout(() => {
-                notification.style.animation = 'slideOut 0.3s ease-out forwards';
-                setTimeout(() => {
-                    document.body.removeChild(notification);
-                }, 300);
-            }, 3000);
-        }
-
-        // إضافة أنيميشن للإشعارات
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideIn {
-                from {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
-                to {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-            }
-            
-            @keyframes slideOut {
-                from {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-                to {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
     </script>
 </body>
 </html>
